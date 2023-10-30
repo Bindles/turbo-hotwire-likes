@@ -1,0 +1,48 @@
+
+<%= turbo_frame_tag dom_id(post) do %>
+  <div id="<%= dom_id post %>">
+    <p>
+      <strong>Title:</strong>
+      <%= post.title %>
+    </p>
+
+    <p>
+      <strong>Content:</strong>
+      <%= post.content %>
+      myvar: <% @myvar %>
+    </p>
+
+  </div>
+
+    <p><%= pluralize(post.likes.size, 'like') %></p>
+    <% if user_signed_in? %>
+      <% if current_user && post.likes.exists?(user_id: current_user.id) %>
+        <%= button_to 'unlike', unlike_post_path(post), method: :delete %>
+      <% else%>
+        <%= button_to 'like', like_post_path(post) %>
+      <% end%>
+    <% else %>
+      <%= link_to 'like', new_user_session_path, data: { turbo_frame: 'top'} %>
+    <% end %>
+  <% end %>
+  <% if !@post %>
+  <% else %>
+    <% if @post.id %>
+    <%= render "form", post: @post %>
+    <% end %>
+  <% end %>
+
+<%= form_with do |forma| %>
+  <div>
+    <%= forma.label :title, style: "display: block" %>
+    <%= forma.text_field :titlez %>
+  </div>
+
+  <div>
+    <%= forma.label :content, style: "display: block" %>
+    <%= forma.text_area :contentz %>
+
+  <div>
+    <%= forma.submit %>
+  </div>
+<% end %>
