@@ -14,11 +14,6 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-   # puts @current_user
-   # puts @current_user.email
-   # puts @user
-    #puts @user.email
-    #puts @User.email
   end
 
   def like
